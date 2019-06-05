@@ -37,21 +37,6 @@ let template = [
         label: '工具',
         submenu:
         [{
-            label: '调试',
-            accelerator: (function() {
-                if (process.platform === 'darwin') {
-                    return 'Alt+Command+I'
-                } else {
-                    return 'Ctrl+Shift+I'
-                }
-            })(),
-            click: function(item, focusedWindow) {
-                if (focusedWindow) {
-                    focusedWindow.toggleDevTools()
-                }
-            }
-        },
-        {
             label: '刷新',
             accelerator: 'F5',
                 click: function(item, focusedWindow) {
@@ -69,17 +54,35 @@ let template = [
                 }
         },
         {
+            label: '调试',
+            accelerator: (function() {
+                if (process.platform === 'darwin') {
+                    return 'Alt+Command+I'
+                } else {
+                    return 'Ctrl+Shift+I'
+                }
+            })(),
+            click: function(item, focusedWindow) {
+                if (focusedWindow) {
+                    focusedWindow.toggleDevTools()
+                }
+            }
+        },
+        {
+            label: '自动登录',
+            click: function(item, focusedWindow) {
+                if (focusedWindow) {
+                    contents = focusedWindow.webContents;
+                    res = contents.executeJavaScript('auto_login()');
+                }
+            }
+        },
+        {
             label: '开始导出',
             click: function(item, focusedWindow) {
                 if (focusedWindow) {
                     contents = focusedWindow.webContents;
-                    // contents.executeJavaScript('fetch("https://jsonplaceholder.typicode.com/users/1").then(resp => resp.json())', true)
-                    //   .then((result) => {
-                    //     console.log(result) // Will be the JSON object from the fetch call
-                    //   })
-                    res = contents.executeJavaScript('export_yiqidai()'); //.then((res) => {console.log(res)} )
-                    console.log(res)
-                    console.log(res.contents)
+                    res = contents.executeJavaScript('export_yiqidai()');
                 }
             }
         }]

@@ -11,14 +11,53 @@ function export_yiqidai() {
     }
 }
 
-function login(login_info) {
+function auto_login() {
     //判断是否登陆成功
+    account = get_login_name();
+    if (!account) {
+        res = to_login();
+        if (!res) {
+            alert('请手动登陆！')
+        }
+    }else {
+        alert('登陆成功，开始导出')
+    }
+}
 
+function to_login() {
+    //获取登陆信息
+    account = '15021292829';
+    pwd = 'l15021292829';
+    document.getElementById('id_0').value = account;
+    document.getElementById('id_1').value = pwd;
+    document.getElementsByClassName(' button button--block button--submit button--primary button--transition')[0].click()
+    loginName = get_login_name();
+    if (loginName === account) {
+        return 'ok'
+    }else {
+        return ''
+    }
 }
 
 function get_login_name() {
     //获取登陆的信息，进行对比
-
+    $.ajax({
+        type:'GET',
+        url: 'https://17dz.com/xqy-portal-web/manage/login/getLoginSession?_=1544003601263',
+        contentType:'application/json;charset=utf-8',
+        success: function (result) {
+            if(result.success) {
+                account = res.body.loginName;
+                    if (account) {
+                        return account
+                    }else {
+                        return ''
+                    }
+            } else {
+                return ''
+            }
+        }
+    })
 }
 
 //获取所有的账套信息
