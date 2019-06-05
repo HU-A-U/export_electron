@@ -11,11 +11,21 @@ function export_yiqidai() {
     }
 }
 
+function login(login_info) {
+    //判断是否登陆成功
+
+}
+
+function get_login_name() {
+    //获取登陆的信息，进行对比
+
+}
+
 //获取所有的账套信息
 function getAllzt() {
     //获取customerid
     CustomerId = getCustomerId();
-    var data = {key: "", customerId: customerId};
+    var data = {key: "", customerId: CustomerId};
     $.ajax({
         type:'POST',
         url: 'https://17dz.com/xqy-portal-web/manage/workbench/getAccountCustomers',

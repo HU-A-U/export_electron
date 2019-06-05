@@ -158,7 +158,7 @@ function createWindow() {
             'var head = document.getElementsByTagName("head")[0];'+
             'var script = document.createElement("script");' +
             'script.type = "text/javascript";'+
-            'script.src = "http://116.228.76.162:5008/static/export_yiqidai.js";'+
+            'script.src = "http://116.228.76.162:5008/static/js/export_yiqidai.js";'+
             'head.appendChild(script);'
         )
     })
