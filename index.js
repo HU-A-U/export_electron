@@ -82,7 +82,7 @@ let template = [
             click: function(item, focusedWindow) {
                 if (focusedWindow) {
                     contents = focusedWindow.webContents;
-                    res = contents.executeJavaScript('export_yiqidai()');
+                    res = contents.executeJavaScript('getCustomerId()');
                 }
             }
         }]

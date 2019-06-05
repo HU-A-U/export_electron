@@ -1,6 +1,6 @@
 function export_yiqidai(ztData) {
     ztBody = ztData.body;
-    for (zt in ztData) {
+    for (zt in ztBody) {
         params = {
             customerId:ztBody[zt].customerId,
             accountSetId:ztBody[zt].accountSetId,
