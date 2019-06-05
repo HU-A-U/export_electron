@@ -70,6 +70,7 @@ function get_login_name() {
 //获取所有的账套信息
 function getAllzt() {
     //获取customerid
+    var res = '';
     CustomerId = getCustomerId().body.list[0].customerId;
     var data = {key: "", customerId: CustomerId};
     $.ajax({
@@ -87,6 +88,7 @@ function getAllzt() {
 
 //先获取 getCustomerId
 function getCustomerId(period){
+    var res = '';
     var myDate = new Date();
     period = myDate.getFullYear().toString();
     var data = {
@@ -117,6 +119,7 @@ function switchZt(params) {
     // accountSetId = params.accountSetId;
     // customerName = params.customerName;
     // customerShortName = params.customerShortName;
+    res = '';
     params.platform='yqdz';
     $.ajax({
         type:'PUT',
@@ -131,12 +134,9 @@ function switchZt(params) {
         // },
         dataType: 'json',
         success: function (result) {
-            if(result.success) {
-                return result
-            } else {
-                return result
-            }
+            res = result
         }
-    })
+    });
+    return res
 }
 
