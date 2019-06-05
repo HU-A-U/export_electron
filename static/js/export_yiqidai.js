@@ -28,8 +28,8 @@ function to_login() {
     //获取登陆信息
     account = '15021292829';
     pwd = 'l15021292829';
-    document.getElementById('id_0').value = account;
-    document.getElementById('id_1').value = pwd;
+    document.getElementById('id__0').value = account;
+    document.getElementById('id__1').value = pwd;
     document.getElementsByClassName(' button button--block button--submit button--primary button--transition')[0].click()
     loginName = get_login_name();
     if (loginName === account) {
