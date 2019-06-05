@@ -1,13 +1,19 @@
 function export_yiqidai() {
     ztData = getAllzt();
+    ztBody = ztData.body;
     for (zt in ztData) {
         params = {
-            customerId:zt[customerId],
-            accountSetId:zt[accountSetId],
-            customerName:zt[customerName],
-            customerShortName:zt[customerName]
+            customerId:ztBody[zt].customerId,
+            accountSetId:ztBody[zt].accountSetId,
+            customerName:ztBody[zt].customerName,
+            customerShortName:ztBody[zt].customerName
         };
-        console.log(params)
+        console.log(params);
+        //切换帐套，获取所有的期间
+        khxx = switchZt(params);
+        startQj = khxx.body.createPeriod;
+        endQj = khxx.body.lastPeriod;
+        console.log(startQj,endQj)
     }
 }
 
@@ -30,7 +36,7 @@ function to_login() {
     pwd = 'l15021292829';
     document.getElementById('id__0').value = account;
     document.getElementById('id__1').value = pwd;
-    document.getElementsByClassName(' button button--block button--submit button--primary button--transition')[0].click()
+    document.getElementsByClassName(' button button--block button--submit button--primary button--transition')[0].click();
     loginName = get_login_name();
     if (loginName === account) {
         return 'ok'
@@ -112,27 +118,28 @@ function getCustomerId(period){
 
 //切换账套,得到所有的期间,返回期间列表
 function switchZt(params) {
-    customerId = params['customerId'];
-    accountSetId = params['accountSetId'];
-    customerName = params['customerName'];
-    customerShortName = params['customerShortName'];
+    // customerId = params.customerId;
+    // accountSetId = params.accountSetId;
+    // customerName = params.customerName;
+    // customerShortName = params.customerShortName;
+    params.platform='yqdz';
     $.ajax({
         type:'PUT',
         url:'https://17dz.com/xqy-portal-web/finance/account/session/accountSet',
-        data : {
-            'customerId':customerId,
-            'accountSetId':accountSetId,
-            'customerName':customerName,
-            'customerShortName':customerShortName,
-            'platform':'yqdz',
-        },
+        data : params,
+        // data : {
+        //     'customerId':customerId,
+        //     'accountSetId':accountSetId,
+        //     'customerName':customerName,
+        //     'customerShortName':customerShortName,
+        //     'platform':'yqdz',
+        // },
         dataType: 'json',
         success: function (result) {
             if(result.success) {
-
-                top.khxx = result;
+                return result
             } else {
-                top.khxx = result;
+                return result
             }
         }
     })
