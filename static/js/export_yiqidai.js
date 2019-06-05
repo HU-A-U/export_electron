@@ -69,7 +69,7 @@ function get_login_name() {
 //获取所有的账套信息
 function getAllzt() {
     //获取customerid
-    CustomerId = getCustomerId();
+    CustomerId = getCustomerId().body.list[0].customerId;
     var data = {key: "", customerId: CustomerId};
     $.ajax({
         type:'POST',
