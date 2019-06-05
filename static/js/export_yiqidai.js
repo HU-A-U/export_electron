@@ -71,7 +71,7 @@ function get_login_name() {
 function getAllzt() {
     //获取customerid
     var res = '';
-    CustomerId = getCustomerId().body.list[0].customerId;
+    CustomerId = getCustomerId();
     var data = {key: "", customerId: CustomerId};
     $.ajax({
         type:'POST',
@@ -85,10 +85,9 @@ function getAllzt() {
     return res
 }
 
-
+var g_customerId = '';
 //先获取 getCustomerId
 function getCustomerId(period){
-    var res = '';
     var myDate = new Date();
     period = myDate.getFullYear().toString();
     var data = {
@@ -106,10 +105,10 @@ function getCustomerId(period){
         contentType:'application/json;charset=utf-8',
         data : JSON.stringify(data),
         success: function (result) {
-            res = result
+            g_customerId = result.body.list[0].customerId;
         }
     });
-    return res
+    return g_customerId
 }
 
 
