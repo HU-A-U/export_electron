@@ -1,5 +1,6 @@
 function export_yiqidai(ztData) {
     ztBody = ztData.body;
+    //todo:判断所给的帐套是否存在
     for (zt in ztBody) {
         params = {
             customerId:ztBody[zt].customerId,
@@ -9,10 +10,9 @@ function export_yiqidai(ztData) {
         };
         console.log(params);
         //切换帐套，获取所有的期间
-        khxx = switchZt(params);
-        startQj = khxx.body.createPeriod;
-        endQj = khxx.body.lastPeriod;
-        console.log(startQj,endQj)
+        switchZt(params);
+        console.log(g_startQj);
+        console.log(g_endQj)
     }
 }
 
@@ -107,31 +107,20 @@ function getCustomerId(){
     });
 }
 
-
+g_startQj = '';
+g_endQj = '';
 //切换账套,得到所有的期间,返回期间列表
 function switchZt(params) {
-    // customerId = params.customerId;
-    // accountSetId = params.accountSetId;
-    // customerName = params.customerName;
-    // customerShortName = params.customerShortName;
-    res = '';
     params.platform='yqdz';
     $.ajax({
         type:'PUT',
         url:'https://17dz.com/xqy-portal-web/finance/account/session/accountSet',
         data : params,
-        // data : {
-        //     'customerId':customerId,
-        //     'accountSetId':accountSetId,
-        //     'customerName':customerName,
-        //     'customerShortName':customerShortName,
-        //     'platform':'yqdz',
-        // },
         dataType: 'json',
         success: function (result) {
-            res = result
+            g_startQj = result.body.createPeriod;
+            g_startQj = result.body.lastPeriod
         }
     });
-    return res
 }
 
