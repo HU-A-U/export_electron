@@ -55,15 +55,16 @@ function get_login_name() {
             if(result.success) {
                 account = res.body.loginName;
                     if (account) {
-                        return account
+                        res = account
                     }else {
-                        return ''
+                        res = ''
                     }
             } else {
-                return ''
+                res = ''
             }
         }
-    })
+    });
+    return res
 }
 
 //获取所有的账套信息
@@ -77,13 +78,10 @@ function getAllzt() {
         contentType:'application/json;charset=utf-8',
         data : JSON.stringify(data),
         success: function (result) {
-            if(result.success) {
-                return result
-            } else {
-                return result;
-            }
+            res = result
         }
-    })
+    });
+    return res
 }
 
 
@@ -106,13 +104,10 @@ function getCustomerId(period){
         contentType:'application/json;charset=utf-8',
         data : JSON.stringify(data),
         success: function (result) {
-            if(result.success) {
-                return result
-            } else {
-                return result
-            }
+            res = result
         }
-    })
+    });
+    return res
 }
 
 
