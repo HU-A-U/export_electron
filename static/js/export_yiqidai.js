@@ -1,5 +1,4 @@
-function export_yiqidai() {
-    ztData = getAllzt();
+function export_yiqidai(ztData) {
     ztBody = ztData.body;
     for (zt in ztData) {
         params = {
@@ -68,26 +67,23 @@ function get_login_name() {
 }
 
 //获取所有的账套信息
-function getAllzt() {
+function getAllzt(customerId) {
     //获取customerid
-    var res = '';
-    CustomerId = getCustomerId();
-    var data = {key: "", customerId: CustomerId};
+    var data = {key: "", customerId: customerId};
     $.ajax({
         type:'POST',
         url: 'https://17dz.com/xqy-portal-web/manage/workbench/getAccountCustomers',
         contentType:'application/json;charset=utf-8',
         data : JSON.stringify(data),
         success: function (result) {
-            res = result
+            export_yiqidai(result)
         }
     });
-    return res
 }
 
-var g_customerId = '';
+
 //先获取 getCustomerId
-function getCustomerId(period){
+function getCustomerId(){
     var myDate = new Date();
     period = myDate.getFullYear().toString();
     var data = {
@@ -105,10 +101,10 @@ function getCustomerId(period){
         contentType:'application/json;charset=utf-8',
         data : JSON.stringify(data),
         success: function (result) {
-            g_customerId = result.body.list[0].customerId;
+            customerId = result.body.list[0].customerId;
+            getAllzt(customerId)
         }
     });
-    return g_customerId
 }
 
 
